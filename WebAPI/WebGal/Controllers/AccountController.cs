@@ -18,10 +18,31 @@ namespace WebGal.Controllers
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationContext context)
             => (_userManager, _signInManager) = (userManager, signInManager);
 
+        [Route("User/IsAuthenticated")]
+        [HttpGet]
+        public bool IsAccountAuthenticated() => User.Identity.IsAuthenticated;
+
+        [Route("User/IsCurrent/{username}")]
+        [HttpGet]
+        public bool IsCurrentAccount(string username)
+        {
+            if (User.Identity.IsAuthenticated)
+                return username == _userManager.GetUserAsync(User).Result.UserName;
+            else
+                return false;
+        }
+
+        [Route("User/{username}")]
+        [HttpGet]
+        public IdentityUser GetAccount(string username) => 
+           _userManager.Users.FirstOrDefault(u => u.UserName == username);
+
+        /*
         [Route("Register/Get/{id?}")]
         [HttpGet]
         public async Task<IdentityUser> Register(string id)
             => _userManager.Users.Where(u => u.Id == id).FirstOrDefault();
+        */
 
         [Route("Register/Post")]
         [HttpPost]
@@ -70,8 +91,6 @@ namespace WebGal.Controllers
             else
             if (ModelState.IsValid)
             {
-                //var user = await _userManager.FindByNameAsync(model.Username);
-                //var user = _context.Users.FirstOrDefault(u => u.UserName == model.Username);
                 var result
                     = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
