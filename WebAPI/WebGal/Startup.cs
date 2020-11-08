@@ -25,6 +25,8 @@ namespace WebGal
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -33,6 +35,22 @@ namespace WebGal
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
+
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            //});
+
             /*services.AddAuthorization();
             services.AddMvc()
                .AddRazorPagesOptions(options =>
@@ -54,6 +72,10 @@ namespace WebGal
 
             app.UseStaticFiles();
             app.UseRouting();
+
+            //app.UseCors(options => options.WithOrigins("http://localhost:4200"));
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseAuthentication();
             app.UseAuthorization();
 

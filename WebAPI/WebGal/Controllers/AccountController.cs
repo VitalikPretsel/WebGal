@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,21 +8,22 @@ using WebGal.ViewModels;
 
 namespace WebGal.Controllers
 {
-
+    [Route("[controller]")]
+    [EnableCors("_myAllowSpecificOrigins")]
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationContext context)
             => (_userManager, _signInManager) = (userManager, signInManager);
 
-        [Route("AccountGet/{id?}")]
+        [Route("Register/Get/{id?}")]
         [HttpGet]
         public async Task<IdentityUser> Register(string id)
             => _userManager.Users.Where(u => u.Id == id).FirstOrDefault();
 
-        [Route("AccountPost")]
+        [Route("Register/Post")]
         [HttpPost]
         public async Task<string> Register([FromBody] RegisterViewModel model)
         {
@@ -51,12 +53,12 @@ namespace WebGal.Controllers
 
         }
 
-        [Route("AccountLoginGet")]
+        [Route("Login/Get")]
         [HttpGet]
         public LoginViewModel Login(string returnUrl = null)
             => new LoginViewModel { ReturnUrl = returnUrl };
 
-        [Route("AccountLoginPost")]
+        [Route("Login/Post")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<string> Login([FromBody] LoginViewModel model)
@@ -68,6 +70,8 @@ namespace WebGal.Controllers
             else
             if (ModelState.IsValid)
             {
+                //var user = await _userManager.FindByNameAsync(model.Username);
+                //var user = _context.Users.FirstOrDefault(u => u.UserName == model.Username);
                 var result
                     = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
@@ -89,12 +93,13 @@ namespace WebGal.Controllers
             return "Login: " + "ModelState is not valid";
         }
 
-        [Route("AccountLogout")]
+        [Route("Logout")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<string> Logout()
         {
             await _signInManager.SignOutAsync();
+            
             return "Logout";
         }
     }
