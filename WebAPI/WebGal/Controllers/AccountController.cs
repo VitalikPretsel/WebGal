@@ -1,7 +1,13 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using WebGal.Models;
 using WebGal.ViewModels;
@@ -47,7 +53,7 @@ namespace WebGal.Controllers
 
         [Route("User/{username}")]
         [HttpGet]
-        public IdentityUser GetAccount(string username) => 
+        public IdentityUser GetAccount(string username) =>
            _userManager.Users.FirstOrDefault(u => u.UserName == username);
 
         /*
@@ -59,32 +65,29 @@ namespace WebGal.Controllers
 
         [Route("Register/Post")]
         [HttpPost]
-        public async Task<string> Register([FromBody] RegisterViewModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                IdentityUser user = new IdentityUser
-                {
-                    UserName = model.Username,
-                    Email = model.Email
-                };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, false);
-                    return "Posted successfully";
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
+                return BadRequest(ModelState);
             }
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
-            return "Posted unsuccessfully!";
 
+            IdentityUser user = new IdentityUser
+            {
+                UserName = model.Username,
+                Email = model.Email
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return BadRequest(ModelState);
+            }
+            await _signInManager.SignInAsync(user, false);
+            return Ok();
         }
 
         [Route("Login/Get")]
@@ -95,19 +98,44 @@ namespace WebGal.Controllers
         [Route("Login/Post")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<string> Login([FromBody] LoginViewModel model)
+        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-            if (ModelState.Values.Count() > 0)
+            if (!ModelState.IsValid)
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                return BadRequest(ModelState);
             }
-            else
-            if (ModelState.IsValid)
+
+            var result
+                = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
+
+            if (!result.Succeeded)
             {
-                var result
-                    = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
-                {
+                ModelState.AddModelError("", "Wrong login and (or) password");
+                return BadRequest(ModelState);
+            }
+
+            var claims = new List<Claim>
+            {
+                new Claim("Name", model.Username), // ClaimTypes.Name
+                new Claim(ClaimTypes.Role, "user")
+            };
+
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey123"));
+            var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+            var tokenOptions = new JwtSecurityToken(
+                issuer: "https://localhost:5001",
+                audience: "https://localhost:4200",
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(5),
+                signingCredentials: signingCredentials
+            );
+
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            return Ok(new { Token = tokenString });
+
+            /*
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return "Login: " + model.ReturnUrl; // Redirect returnUrl
@@ -116,13 +144,7 @@ namespace WebGal.Controllers
                     {
                         return "Login: " + "no ReturnUrl"; // Redirect home index
                     }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Wrong login and (or) password");
-                }
-            }
-            return "Login: " + "ModelState is not valid";
+              */
         }
 
         [Route("Logout")]
@@ -131,7 +153,7 @@ namespace WebGal.Controllers
         public async Task<string> Logout()
         {
             await _signInManager.SignOutAsync();
-            
+
             return "Logout";
         }
     }
