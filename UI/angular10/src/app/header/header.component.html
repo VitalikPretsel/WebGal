@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark t-bg-grad-1 px-2">
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:40%; float: left">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home</a> <!--  <span class="sr-only">(current)</span>  -->
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="login">Log in</a>
+          <a class="dropdown-item" routerLink="register">Sign up</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+
+  <a class="navbar-brand t-text-brand" style="width: 20%; text-align: center; float:right;" href="#">Gallexy</a>
+  <div style="width:40%; text-align: right; float:right;">
+    <div *ngIf="isAuth; else elseBlock">
+      <a id="t-btn-light" class="btn btn-outline-light mr-2" routerLink="login">{{userName}}</a>
+    </div>
+    <ng-template #elseBlock>
+      <a id="t-btn-light" class="btn btn-outline-light mr-2" routerLink="login">Log in</a>
+      <a id="t-btn-light" class="btn btn-outline-light mr-2" routerLink="register">Sign up</a>
+    </ng-template>
+  </div>
+
+</nav>
