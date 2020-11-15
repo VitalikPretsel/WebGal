@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from 'src/app/shared.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { SharedService } from 'src/app/shared.service'
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private service:SharedService) { }
+  constructor(private service:SharedService, private router: Router) { }
   
   @Input() val:any;
   Username:string;
@@ -30,9 +31,17 @@ export class LoginComponent implements OnInit {
   		RememberMe:this.RememberMe,
   		ReturnUrl:this.ReturnUrl
   	}
-  	this.service.loginUser(val).subscribe(res => 
-  		{alert(res.toString());
-  	});
+    this.service.loginUser(val).subscribe(res =>
+    {
+      const token = (<any>res).token;
+      localStorage.setItem("jwt", token);
+      this.router.navigate(["/"]).then(() => {
+        window.location.reload();
+      });
+    });
+  	//this.service.loginUser(val).subscribe(res => 
+  	//	{alert(res.toString());
+  	//});
   }
 }
   
