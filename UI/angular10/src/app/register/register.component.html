@@ -1,0 +1,93 @@
+<!--
+
+<div class="form-froup row">
+
+    <label class="col-sm-2 col-form-label">Username</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" [(ngModel)]="Username">
+    </div>
+    <label class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" [(ngModel)]="Email">
+    </div>
+    <label class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" [(ngModel)]="Password">
+    </div>
+    <label class="col-sm-2 col-form-label">Confirm Password</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" [(ngModel)]="PasswordConfirm">
+    </div>
+</div>
+
+<button (click)="register()"  class="btn btn-primary">
+    Register
+</button>
+
+-->
+
+<!-- Material form login -->
+<div class="card my-2 mx-auto" style="width: 400px">
+
+  <h5 class="card-header text-white text-center py-4 t-bg-grad-1">
+    Sign up
+  </h5>
+
+  <!--Card content-->
+  <div class="card-body px-lg-5 pt-0">
+
+    <!-- Form -->
+    
+
+      <!-- Email -->
+      <div class="md-form mt-3">
+        <input id="materialLoginFormEmail" class="form-control t-form-4" [(ngModel)]="Username">
+        <label for="materialLoginFormEmail">Username</label>
+      </div>
+
+      <!-- Email -->
+      <div class="md-form">
+        <input id="materialLoginFormEmail" class="form-control t-form-4" [(ngModel)]="Email">
+        <label for="materialLoginFormEmail">Email</label>
+      </div>
+
+      <!-- Password -->
+      <div class="md-form">
+        <input type="password" id="materialLoginFormPassword" class="form-control t-form-4" [(ngModel)]="Password">
+        <label for="materialLoginFormPassword">Password</label>
+      </div>
+
+      <!-- Password -->
+      <div class="md-form">
+        <input type="password" id="materialLoginFormPassword" class="form-control t-form-4" [(ngModel)]="PasswordConfirm">
+        <label for="materialLoginFormPassword">Confirm Password</label>
+      </div>
+
+      <!-- Sign in button -->
+      <button (click)="register()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Sign up</button>
+
+      <!-- Register -->
+      <p class="text-center">Already signed up?
+        <a routerLink="../login" class="t-text-color-4">Log in</a>
+      </p>
+<!--
+      -- social login --
+      <p>or sign in with:</p>
+      <a type="button" class="btn-floating btn-fb btn-sm">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a type="button" class="btn-floating btn-tw btn-sm">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a type="button" class="btn-floating btn-li btn-sm">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a type="button" class="btn-floating btn-git btn-sm">
+        <i class="fab fa-github"></i>
+      </a>
+  -->
+    
+    <!-- Form -->
+  </div>
+</div>
+<!-- Material form login -->
