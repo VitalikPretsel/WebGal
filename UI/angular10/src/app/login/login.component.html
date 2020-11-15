@@ -1,3 +1,4 @@
+<!--
 <div class="form-froup row">
 
     <label class="col-sm-2 col-form-label">Username</label>
@@ -17,3 +18,74 @@
 <button (click)="login()"  class="btn btn-primary">
     Login
 </button>
+-->
+
+
+
+<!-- Material form login -->
+<div class="card my-2 mx-auto" style="width: 400px">
+
+  <h5 class="card-header text-white text-center py-4 t-bg-grad-1">
+    Log in
+  </h5>
+
+  <!--Card content-->
+  <div class="card-body px-lg-5 pt-0">
+
+    <!-- Form -->
+    <form style="color: #757575;">
+
+      <!-- Email -->
+      <div class="md-form mt-3">
+        <input id="materialLoginFormEmail" class="form-control t-form-4" [(ngModel)]="Username">
+        <label for="materialLoginFormEmail">Username</label>
+      </div>
+
+      <!-- Password -->
+      <div class="md-form">
+        <input type="password" id="materialLoginFormPassword" class="form-control t-form-4" [(ngModel)]="Password">
+        <label for="materialLoginFormPassword">Password</label>
+      </div>
+
+      <div class="d-flex justify-content-around mt-3">
+        <div>
+          <!-- Remember me -->
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input t-form-4" id="materialLoginFormRemember" [(ngModel)]="RememberMe">
+            <label class="form-check-label" for="materialLoginFormRemember">Remember me</label>
+          </div>
+        </div>
+        <div>
+          <!-- Forgot password -->
+          <a href="" class="t-text-color-4">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Sign in button -->
+      <button (click)="login()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Log in</button>
+
+      <!-- Register -->
+      <p class="text-center">You are new here?
+        <a routerLink="../register" class="t-text-color-4">Sign up</a>
+      </p>
+<!--
+      -- social login --
+      <p>or sign in with:</p>
+      <a type="button" class="btn-floating btn-fb btn-sm">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a type="button" class="btn-floating btn-tw btn-sm">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a type="button" class="btn-floating btn-li btn-sm">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a type="button" class="btn-floating btn-git btn-sm">
+        <i class="fab fa-github"></i>
+      </a>
+  -->
+    </form>
+    <!-- Form -->
+  </div>
+</div>
+<!-- Material form login -->

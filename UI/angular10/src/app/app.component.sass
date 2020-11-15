@@ -17,7 +17,33 @@ $t-color-5: #f5487f
 
 .t-bg-grad-1
 	background: linear-gradient(0.25turn, #101b45, #c7417b)
+.t-bg-grad-2
+	background: linear-gradient(0.25turn, #553772, #c7417b)	
 
+.t-text-color-4
+	color: $t-color-4
+.t-text-color-4:hover
+	color: $t-color-3
+.t-text-color-4:active
+	color: $t-color-2
 
 #t-btn-light:hover
 	color: $t-color-4
+#t-btn-light:focus
+	border-color: $t-color-4
+	box-shadow: 0 0 0 4px rgba(199, 65, 123, 0.6)
+
+#t-btn-outline-4
+	color: $t-color-4
+	border-color: $t-color-4
+#t-btn-outline-4:hover
+	color: white
+	background-color: $t-color-4
+
+.t-form-4:focus 
+	border-color: $t-color-4
+	box-shadow: 0 0 0 4px rgba(199, 65, 123, 0.6)
+
+.t-form-4[type="checkbox"]:checked
+	background-color: $t-color-4
+	border-color: $t-color-4
