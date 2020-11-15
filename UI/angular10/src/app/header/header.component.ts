@@ -19,9 +19,9 @@ export class HeaderComponent implements OnInit {
   }
 
   isAuthenticated(){
-  	this.service.isAuthenticated().subscribe((data:boolean) => this.isAuth = data);
+  	this.isAuth = this.service.isAuthenticatedJwt(); //.subscribe((data:boolean) => this.isAuth = data);
   }
   getCurrentUserName(){
-  	this.service.getCurrentUserName().subscribe((data:string) => this.userName = data);
+  	this.userName = this.service.getCurrentUserNameJwt(); //.subscribe((data:string) => this.userName = data);
   }
 }
