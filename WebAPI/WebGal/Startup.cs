@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using WebGal.Models;
 
 namespace WebGal
@@ -34,7 +27,7 @@ namespace WebGal
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
-            services.AddControllers();
+            services.AddControllersWithViews();
 
             services.AddCors(options =>
             {
@@ -72,7 +65,7 @@ namespace WebGal
 
             app.UseStaticFiles();
             app.UseRouting();
-
+                
             //app.UseCors(options => options.WithOrigins("http://localhost:4200"));
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
