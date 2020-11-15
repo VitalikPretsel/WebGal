@@ -26,7 +26,7 @@ namespace WebGal
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+                .AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
             services.AddControllersWithViews();
 
             services.AddCors(options =>

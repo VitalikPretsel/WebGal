@@ -20,7 +20,11 @@ namespace WebGal.Controllers
 
         [Route("User/IsAuthenticated")]
         [HttpGet]
-        public bool IsAccountAuthenticated() => User.Identity.IsAuthenticated;
+        public bool IsAccountAuthenticated()
+        {
+            var b = User.Identity.IsAuthenticated;
+            return b;
+        }
 
         [Route("User/IsCurrent/{username}")]
         [HttpGet]
@@ -30,6 +34,15 @@ namespace WebGal.Controllers
                 return username == _userManager.GetUserAsync(User).Result.UserName;
             else
                 return false;
+        }
+
+        [Route("User/CurrentUserName")]
+        [HttpGet]
+        public string GetCurrentUserName()
+        {
+
+            var str = User.Identity.Name;
+            return str;
         }
 
         [Route("User/{username}")]

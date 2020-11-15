@@ -13,13 +13,22 @@ export class SharedService {
   registerUser(val:any){
     return this.http.post(this.APIUrl + '/account/register/post', val, {responseType: 'text'});
   }
+
   getUser(val:any){
   	return this.http.get(this.APIUrl + '/Account/Register/Get', val);
   }
+
+  isAuthenticated(){
+    return this.http.get(this.APIUrl + '/Account/User/IsAuthenticated', {});
+  }
+  getCurrentUserName(){
+    return this.http.get(this.APIUrl + '/Account/User/CurrentUserName', {});
+  }
+
   loginUser(val:any){
   	return this.http.post(this.APIUrl + '/Account/Login/Post', val, {responseType: 'text'});
   }
-  
+
   logoutUser(){
   	return this.http.post(this.APIUrl + '/Account/Logout', {});
   } 

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   	}
   	this.service.loginUser(val).subscribe(res => 
   		{alert(res.toString());
-  	})
+  	});
   }
 }
   
