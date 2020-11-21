@@ -13,6 +13,7 @@ import { SharedService } from './shared.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProfileComponent } from './profile/profile.component';
 
 /*
 export function TokenGetter(){
@@ -26,7 +27,8 @@ export function TokenGetter(){
     HeaderComponent,
     AccountComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -27,11 +27,66 @@ $t-color-5: #f5487f
 .t-text-color-4:active
 	color: $t-color-2
 
+@media screen and (max-width: 767px)
+	.col-spec-mt
+		margin-top: 20px !important
+		padding-bottom: 20px !important
+@media screen and (min-width: 767px)
+	.col-spec-pr
+		padding-right: 20px !important
+
 #t-btn-light:hover
 	color: $t-color-4
 #t-btn-light:focus
 	border-color: $t-color-4
 	box-shadow: 0 0 0 4px rgba(199, 65, 123, 0.6)
+
+#t-btn-4
+	color: white
+	background-color: $t-color-4
+#t-btn-4:hover
+	color: $t-color-4
+	background-color: white
+	border-color: $t-color-4
+#t-btn-4:focus
+	box-shadow: 0 0 0 4px rgba(199, 65, 123, 0.6)
+	border-color: white
+
+#t-btn-3
+	color: white
+	background-color: $t-color-3
+#t-btn-3:hover
+	color: $t-color-3
+	background-color: white
+	border-color: $t-color-3
+#t-btn-3:focus
+	box-shadow: 0 0 0 4px rgba(199, 65, 123, 0.6)
+	border-color: white
+
+#t-btn-2
+	color: white
+	background-color: $t-color-2
+#t-btn-2:hover
+	color: $t-color-2
+	background-color: white
+	border-color: $t-color-2
+#t-btn-2:focus
+	box-shadow: 0 0 0 4px rgba(199, 65, 123, 0.6)
+	border-color: white
+
+#t-btn-grad-1
+	color: white
+	background: linear-gradient(0.25turn, #553772, #c7417b)
+	border: none
+#t-btn-grad-1:hover
+	color: $t-color-4
+	background: white
+	border-color: $t-color-4
+#t-btn-grad-1:focus
+	box-shadow: 0 0 0 4px rgba(199, 65, 123, 0.6)
+	background: white
+	color: $t-color-4
+	border: 1px solid $t-color-4
 
 #t-btn-outline-4
 	color: $t-color-4
