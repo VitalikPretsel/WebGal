@@ -30,11 +30,12 @@
   <a class="navbar-brand t-text-brand" style="width: 20%; text-align: center; float:right;" href="#">Gallexy</a>
   <div style="width:40%; text-align: right; float:right;">
     <div *ngIf="isAuth; else elseBlock">
-      <a id="t-btn-light" class="btn btn-outline-light mr-2" routerLink="login">{{userName}}</a>
+      <a id="t-btn-light" class="btn btn-outline-light mr-2" routerLink="profile">{{userName}}</a>
     </div>
     <ng-template #elseBlock>
       <a id="t-btn-light" class="btn btn-outline-light mr-2" routerLink="login">Log in</a>
       <a id="t-btn-light" class="btn btn-outline-light mr-2" routerLink="register">Sign up</a>
+      <a id="t-btn-light" class="btn btn-outline-light mr-2" routerLink="profile">{{userName}}</a> <!-- temporary-->
     </ng-template>
   </div>
 
