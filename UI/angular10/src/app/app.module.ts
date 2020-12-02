@@ -13,7 +13,10 @@ import { SharedService } from './shared.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ProfileComponent } from './profile/profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+//import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 /*
 export function TokenGetter(){
@@ -28,7 +31,9 @@ export function TokenGetter(){
     AccountComponent,
     RegisterComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    EditProfileComponent,
+    //EditProfileComponent
   ],
   imports: [
     BrowserModule,

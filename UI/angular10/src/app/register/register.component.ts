@@ -11,32 +11,62 @@ export class RegisterComponent implements OnInit {
 
   constructor(private service:SharedService, private router: Router) { }
 
-  @Input() val:any;
   Username:string;
   Email:string;
   Password:string;
   PasswordConfirm:string;
 
+
   ngOnInit(): void {
-  	this.Username = this.val.Username;
-  	this.Email = this.val.Email;
-  	this.Password = this.val.Password;
-  	this.PasswordConfirm = this.val.PasswordConfirm;
+
   }
 
   register(){
-  	var val = {
+  	var user = {
   		Username:this.Username,
   		Email:this.Email,
   		Password:this.Password,
   		PasswordConfirm:this.PasswordConfirm,
   	}
-    this.service.registerUser(val).subscribe(res => 
+    //this.service.registerUser(user).subscribe(res => 
+    //  {this.router.navigate(["/"]).then(() => {
+    //    window.location.reload();
+    //  });
+    //})
+    this.service.registerUser(user).subscribe(res =>
+    {
+      var loginUser = {
+      Username:this.Username,
+      Password:this.Password,
+      RememberMe:false,
+      ReturnUrl:""
+    }
+    this.service.loginUser(loginUser).subscribe(res =>
+    {
+      const token = (<any>res).token;
+      localStorage.setItem("jwt", token);
+      //this.router.navigate(["/"]).then(() => {
+      //  window.location.reload();
+      //});
+       var profile = {
+      UserId:this.service.getCurrentUserIdJwt(),
+      ProfileName:"",
+      ProfilePicturePath:"",
+      ProfileInfo:"",
+    }
+    this.service.addProfile(profile).subscribe(res => 
       {this.router.navigate(["/"]).then(() => {
         window.location.reload();
       });
     })
-  	//this.service.registerUser(val).subscribe(res => 
+    });
+    });
+
+   
+
+   
+
+  	//this.service.registerUser(user).subscribe(res => 
   	//	{alert(res.toString());
   	//})
   }

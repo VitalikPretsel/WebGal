@@ -12,31 +12,27 @@ export class SharedService {
   constructor(private http:HttpClient) { }
 
   registerUser(val:any){
-    return this.http.post(this.APIUrl + '/account/register/post', val, {responseType: 'text'});
+    return this.http.post(this.APIUrl + '/account/register/post', val); //, {responseType: 'text'}
   }
 
   getUser(val:any){
-  	return this.http.get(this.APIUrl + '/Account/Register/Get', val);
+  	return this.http.get(this.APIUrl + '/Account/User/Get/' + val);
+  }
+  getProfile(val:any){
+    return this.http.get(this.APIUrl + '/Profile/Get/' + val);
   }
 
-  isAuthenticated(){
-    return this.http.get(this.APIUrl + '/Account/User/IsAuthenticated', {});
-  }
-  getCurrentUserName(){
-    return this.http.get(this.APIUrl + '/Account/User/CurrentUserName', {});
-  }
 
   loginUser(val:any){
   	return this.http.post(this.APIUrl + '/Account/Login/Post', val);
   }
-
-  logoutUser(){
-  	return this.http.post(this.APIUrl + '/Account/Logout', {});
-  } 
-
   getCurrentUserNameJwt(){
     var helper = new JwtHelperService();
     return helper.decodeToken(localStorage.getItem("jwt")).Name;
+  }
+  getCurrentUserIdJwt(){
+    var helper = new JwtHelperService();
+    return helper.decodeToken(localStorage.getItem("jwt")).Id;
   }
   logoutJwt(){
     localStorage.removeItem("jwt");
@@ -52,4 +48,32 @@ export class SharedService {
       return false;
     }
   }
+  addProfile(val:any){
+    return this.http.post(this.APIUrl + '/Profile/Add', val);
+  }
+  editProfile(id:string, val:any){
+    return this.http.put(this.APIUrl + '/Profile/Edit/' + id, val);
+  }
+  uploadFile(val:any){
+    return this.http.post(this.APIUrl + '/Upload', val);
+  }
 }
+
+
+
+
+
+
+
+
+/*
+  isAuthenticated(){
+    return this.http.get(this.APIUrl + '/Account/User/IsAuthenticated', {});
+  }
+  getCurrentUserName(){
+    return this.http.get(this.APIUrl + '/Account/User/CurrentUserName', {});
+  }
+  logoutUser(){
+    return this.http.post(this.APIUrl + '/Account/Logout', {});
+  } 
+*/
