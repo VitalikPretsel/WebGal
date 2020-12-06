@@ -55,7 +55,7 @@ namespace WebGal.Controllers
         [Route("User/Get/{username}")]        //{username}
         [HttpGet]
         public async Task<IdentityUser> GetAccount(string username) =>
-            _userManager.Users.FirstOrDefault(u => u.UserName == username);
+            _userManager.Users.FirstOrDefault(u => (u.UserName == username || u.Id == username));
     
 
         /*
@@ -79,9 +79,15 @@ namespace WebGal.Controllers
                 UserName = model.Username,
                 Email = model.Email
             };
+            /*
             if (model.Password != model.PasswordConfirm)            // for password-confirm matching
             {
-                ModelState.AddModelError(string.Empty, "Passwords don't match");
+                ModelState.AddModelError("PasswordConfirm", "Passwords don't match");
+                return BadRequest(ModelState);
+            }*/
+            if (_userManager.Users.Any(u => u.Email == model.Email))            
+            {
+                ModelState.AddModelError("Email", "User with such email already exists");
                 return BadRequest(ModelState);
             }
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -89,7 +95,7 @@ namespace WebGal.Controllers
             {
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError("Password", error.Description);
                 }
                 return BadRequest(ModelState);
             }

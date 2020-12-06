@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 //import { JwtModule } from '@auth0/angular-jwt';
 
@@ -16,6 +17,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { PostComponent } from './post/post.component';
+import { FollowersComponent } from './followers/followers.component';
+import { NewPostComponent } from './new-post/new-post.component';
 //import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 /*
@@ -33,10 +37,14 @@ export function TokenGetter(){
     LoginComponent,
     ProfileComponent,
     EditProfileComponent,
+    PostComponent,
+    FollowersComponent,
+    NewPostComponent,
     //EditProfileComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
