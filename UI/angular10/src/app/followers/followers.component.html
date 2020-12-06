@@ -1,0 +1,28 @@
+<div class="row" *ngIf="profiles.length == 0; else showProfiles">
+  <div class="col-auto my-5 mx-auto">No users here</div>
+</div>
+<ng-template #showProfiles>
+  <hr class="my-2">
+  <div *ngFor="let p of profiles; let i = index">
+    <div class="row m-0">
+      <div class="col-5 my-auto">
+        <div class="p-1" style="text-align: center">
+          <div class="img-snip rounded-circle border" style="height:80px;width:80px;display: inline-block;">
+            <img [src]="createImgPath(p.profilePicturePath)" onerror="this.src='https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png'" alt="" class="" style="height:80px; min-height: 80px">
+          </div>
+        </div>
+      </div>
+      <div class="col-7 my-auto" style="text-align: center">
+        <div style="display: inline-block;">
+          <a class="btn t-form-4 waves-effect z-depth-0" routerLink="/profile/{{users[i].userName}}">
+            <p class="my-0"><b>{{users[i].userName}}</b></p>
+            <p class="my-0">{{p.profileName}}</p>
+          </a>
+        </div>
+      </div>
+
+      <hr class="my-2">
+    </div>
+  </div>
+</ng-template>
+

@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/shared.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { of } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +14,123 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  isAuth: boolean;
+  authUserName: string;
+  authUserId: string;
+  isAuthCurrentUser: boolean;
+
+  isFollowing: boolean;
+  following: any;
+  followers: any;
+  followings: any;
+
+  followingsTarget: string;
+
+  userName: string;
+  user: any;
+  profile: any;
+
+  post: any;
+  posts: any;
+  items: any;
+  itemInRowRange: any;
+
+  ActivateShowPost: boolean = false;
+
+  constructor(private service: SharedService, private route: ActivatedRoute, private sanitizer: DomSanitizer, private router: Router) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(() => {
+      this.getAuthInfo();
+      this.service.getUser(this.userName).subscribe((userdata) => {
+        this.user = userdata;
+        this.getFollowInfo();
+        this.service.getProfile(this.user.id).subscribe((profiledata) => {
+          this.profile = profiledata;
+          if (this.profile.profilePicturePath == "" || this.profile.profilePicturePath == null)
+            this.profile.profilePicturePath = "https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png";
+          //this.profile.profilePicturePath = this.sanitizer.bypassSecurityTrustUrl("https://localhost:44336/" + this.profile.profilePicturePath);
+          this.profile.profilePicturePath = "https://localhost:44336/" + this.profile.profilePicturePath
+        });
+
+        this.loadPosts();
+      });
+    });
   }
 
+  getAuthInfo() {
+    this.userName = this.route.snapshot.paramMap.get('userName');
+    this.isAuth = this.service.isAuthenticatedJwt();
+    if (this.isAuth) {
+      this.authUserName = this.service.getCurrentUserNameJwt();
+      this.isAuthCurrentUser = this.authUserName == this.userName;
+    }
+  }
+
+  getFollowInfo() {
+    if (this.isAuth) {
+      this.authUserId = this.service.getCurrentUserIdJwt();
+      this.service.isFollowing(this.authUserId, this.user.id).subscribe((isFollowing: boolean) => {
+        this.isFollowing = isFollowing;
+      });
+      this.following = {
+        FollowerUserId: this.authUserId,
+        FollowingUserId: this.user.id,
+      }
+    }
+    else {
+      this.isFollowing = false;
+    }
+
+    this.service.getFollowers(this.user.id).subscribe((followersdata) => {
+      this.followers = followersdata;
+    });
+    this.service.getFollowings(this.user.id).subscribe((followingsdata) => {
+      this.followings = followingsdata;
+    });
+  }
+
+  follow() {
+    if (this.isAuth)
+      this.service.follow(this.following).subscribe(() => {
+        window.location.reload();
+      });
+    else
+      this.router.navigate(["/login"]);
+  }
+  unfollow() {
+    this.service.unfollow(this.following.FollowerUserId, this.following.FollowingUserId).subscribe(() => {
+      window.location.reload();
+    });
+  }
+
+  changeFollowTarget(val: string) {
+    this.followingsTarget = val;
+  }
+
+  showPost(item) {
+    this.post = item;
+    this.ActivateShowPost = true;
+  }
+
+  closePost() {
+    this.ActivateShowPost = false;
+    this.loadPosts();
+  }
+
+  loadPosts() {
+    this.service.getPosts(this.user.id).subscribe((postsdata) => {
+      this.posts = postsdata;
+      let itemsInRow = 3;
+      this.itemInRowRange = Array.from(Array(itemsInRow).keys());
+      this.items = of(this.posts);
+    });
+  }
+
+
+  public createImgPath = (serverPath: string) => {
+    return 'https://localhost:44336/' + serverPath;
+  }
 }
+
+

@@ -22,6 +22,7 @@
     "@auth0/angular-jwt": "^5.0.1",
     "angular-jwt": "github:auth0/angular-jwt",
     "bootstrap": "^5.0.0-alpha2",
+    "ngx-cookie-service": "^11.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

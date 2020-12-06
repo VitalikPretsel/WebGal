@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System.IO;
 using System.Text;
 using WebGal.Models;
 
@@ -63,19 +66,12 @@ namespace WebGal
                     });
             });
 
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy(name: MyAllowSpecificOrigins,
-            //        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            //});
-
-            /*services.AddAuthorization();
-            services.AddMvc()
-               .AddRazorPagesOptions(options =>
-               {
-                   options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
-               });//.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            */
+            services.Configure<FormOptions>(o =>
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +85,12 @@ namespace WebGal
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new Microsoft.AspNetCore.Http.PathString("/Resources")
+            });
+
             app.UseRouting();
                 
             //app.UseCors(options => options.WithOrigins("http://localhost:4200"));

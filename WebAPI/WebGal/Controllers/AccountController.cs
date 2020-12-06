@@ -23,7 +23,7 @@ namespace WebGal.Controllers
 
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationContext context)
             => (_userManager, _signInManager) = (userManager, signInManager);
-
+        /*
         [Route("User/IsAuthenticated")]
         [HttpGet]
         public bool IsAccountAuthenticated()
@@ -31,7 +31,8 @@ namespace WebGal.Controllers
             var b = User.Identity.IsAuthenticated;
             return b;
         }
-
+        */
+        /*
         [Route("User/IsCurrent/{username}")]
         [HttpGet]
         public bool IsCurrentAccount(string username)
@@ -41,20 +42,21 @@ namespace WebGal.Controllers
             else
                 return false;
         }
-
+        */
+        /*
         [Route("User/CurrentUserName")]
         [HttpGet]
         public string GetCurrentUserName()
         {
-
             var str = User.Identity.Name;
             return str;
         }
-
-        [Route("User/{username}")]
+        */
+        [Route("User/Get/{username}")]        //{username}
         [HttpGet]
-        public IdentityUser GetAccount(string username) =>
-           _userManager.Users.FirstOrDefault(u => u.UserName == username);
+        public async Task<IdentityUser> GetAccount(string username) =>
+            _userManager.Users.FirstOrDefault(u => (u.UserName == username || u.Id == username));
+    
 
         /*
         [Route("Register/Get/{id?}")]
@@ -77,16 +79,38 @@ namespace WebGal.Controllers
                 UserName = model.Username,
                 Email = model.Email
             };
+            /*
+            if (model.Password != model.PasswordConfirm)            // for password-confirm matching
+            {
+                ModelState.AddModelError("PasswordConfirm", "Passwords don't match");
+                return BadRequest(ModelState);
+            }*/
+            if (_userManager.Users.Any(u => u.Email == model.Email))            
+            {
+                ModelState.AddModelError("Email", "User with such email already exists");
+                return BadRequest(ModelState);
+            }
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError("Password", error.Description);
                 }
                 return BadRequest(ModelState);
             }
             await _signInManager.SignInAsync(user, false);
+            /*
+            var profile = new Profile
+            {
+                UserID = _userManager.Users.FirstOrDefault(u => u.UserName == model.Username).Id,
+                ProfileInfo = "",
+                ProfileName = "",
+                ProfilePicturePath = ""
+            };
+
+            RedirectToAction("AddProfile", "ProfileController", profile);
+            */
             return Ok();
         }
 
@@ -116,6 +140,7 @@ namespace WebGal.Controllers
 
             var claims = new List<Claim>
             {
+                new Claim("Id", _userManager.Users.Where(u => u.UserName == model.Username).FirstOrDefault().Id), // ?????
                 new Claim("Name", model.Username), // ClaimTypes.Name
                 new Claim(ClaimTypes.Role, "user")
             };
@@ -127,7 +152,7 @@ namespace WebGal.Controllers
                 issuer: "https://localhost:5001",
                 audience: "https://localhost:4200",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(5),
+                expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: signingCredentials
             );
 
@@ -146,7 +171,7 @@ namespace WebGal.Controllers
                     }
               */
         }
-
+        /*
         [Route("Logout")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
@@ -156,5 +181,6 @@ namespace WebGal.Controllers
 
             return "Logout";
         }
+        */
     }
 }

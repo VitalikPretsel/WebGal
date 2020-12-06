@@ -12,7 +12,17 @@ namespace WebGal.Models
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
+        }
+
+        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Following> Followings { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
         }
     }
 }

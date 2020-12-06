@@ -1,0 +1,53 @@
+<div class="card col-md-6 my-3 mx-auto" style="border-radius: 0">
+
+  <h5 class="card-header text-white text-center py-4 t-bg-grad-1" style="border-radius: 0">
+    Change profile information
+  </h5>
+
+  <!--Card content-->
+  <div class="card-body px-lg-5 pt-0">
+
+    <!-- Form -->
+
+    <div class="profile-userpic mx-auto mt-3 " style="text-align: center;">
+      <button (click)="file.click()" class="btn img-btn-1">
+        <img [src]="createImgPath(ProfilePicturePath)" onerror="this.src='https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png'" alt="">
+        <!-- https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png
+        {{profile.profilePicturePath}}
+        -->
+      </button>
+      <input #file type="file" (change)="uploadFile(file.files)" style="display:none;">
+    </div>
+
+    <!-- Email -->
+    <div class="md-form mt-3">
+      <input id="materialEditProfileFormProfileName" class="form-control t-form-4" [(ngModel)]="ProfileName">
+      <label for="materialEditProfileFormProfileName">Profile Name</label>
+    </div>
+
+
+    <!-- Email -->
+    <div class="md-form">
+      <textarea id="materialEditProfileFormProfileInfo" class="form-control t-form-4" [(ngModel)]="ProfileInfo" value="{{profile.profileInfo}}"></textarea>
+      <label for="materialEditProfileFormProfileInfo">Profile info</label>
+    </div>
+
+
+    <!-- Password -->
+    <div class="md-form">
+      <input id="materialEditProfileFormProfilePicture" class="form-control t-form-4" [(ngModel)]="ProfilePicturePath">
+      <label for="materialEditProfileFormProfilePicture">ProfilePicturePath</label>
+    </div>
+
+
+
+    <!-- button -->
+    <button (click)="saveChanges()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Save changes</button>
+    <!--<button routerLink="../profile/{{UserName}}" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Cancel</button>-->
+    <p class="text-center">
+      <a href="" routerLink="../profile/{{UserName}}" class="t-text-color-4">Cancel</a>
+    </p>
+
+  </div>
+</div>
+
