@@ -58,9 +58,7 @@ export class RegisterComponent implements OnInit {
           ProfileInfo: "",
         }
         this.service.addProfile(profile).subscribe(res => {
-          this.router.navigate(["/"]).then(() => {
-            window.location.reload();
-          });
+          this.router.navigate(["/profile/" + this.Username]);
         })
       });
     },

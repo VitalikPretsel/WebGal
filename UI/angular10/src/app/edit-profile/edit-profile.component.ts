@@ -20,6 +20,9 @@ export class EditProfileComponent implements OnInit {
   ProfileInfo: string;
   ProfilePicturePath: string;
 
+  formData: any = new FormData();
+  fileToUpload: any;
+
   ngOnInit(): void {
     this.UserName = this.service.getCurrentUserNameJwt();
     this.UserId = this.service.getCurrentUserIdJwt();
@@ -52,16 +55,24 @@ export class EditProfileComponent implements OnInit {
   public uploadFile = (files) => {
     if (files.length === 0) { return; }
 
-    let fileToUpload = <File>files[0];
-    const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
-    this.service.uploadFile(formData).subscribe(() => {
-      console.log(fileToUpload);
-      console.log(fileToUpload.name);
+    this.fileToUpload = <File>files[0];
+    
+    this.formData.append('file', this.fileToUpload, this.fileToUpload.name);
+    console.log(this.formData);
+    this.service.uploadFile(this.formData).subscribe(() => {
+      console.log(this.fileToUpload);
+      console.log(this.fileToUpload.name);
 
-      this.ProfilePicturePath = "resources/images/" + fileToUpload.name;
+      this.ProfilePicturePath = "resources/images/" + this.fileToUpload.name;
       console.log(this.ProfilePicturePath);
     });
+  }
+
+  public deleteFile() {
+    console.log(this.formData);
+    this.service.deleteFile(this.fileToUpload.name).subscribe(() =>
+      this.formData.delete("file")
+    );
   }
 
   public createImgPath = (serverPath: string) => {

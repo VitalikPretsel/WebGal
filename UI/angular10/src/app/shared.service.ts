@@ -57,11 +57,26 @@ export class SharedService {
   uploadFile(val: any) {
     return this.http.post(this.APIUrl + '/Upload', val);
   }
+  deleteFile(val: any) {
+    console.log(this.APIUrl + '/Upload/Delete/'+ val);
+    return this.http.delete(this.APIUrl + '/Upload/Delete/'+ val);
+  }
   getPosts(val: any) {
     return this.http.get(this.APIUrl + '/Post/GetPosts/' + val);
   }
+  getPost(val: any) {
+    return this.http.get(this.APIUrl + '/Post/GetPost/' + val);
+  }
   newPost(val: any) {
     return this.http.post(this.APIUrl + '/Post/Add', val);
+  }
+  editPost(id: string, val: any) {
+    return this.http.put(this.APIUrl + '/Post/Edit/' + id, val);
+  }
+  deletePost(val: any) {
+    console.log(val);
+    console.log(this.APIUrl + '/Post/Delete/' + val);
+    return this.http.delete(this.APIUrl + '/Post/Delete/' + val);
   }
 
 

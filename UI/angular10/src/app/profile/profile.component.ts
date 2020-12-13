@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -37,7 +36,7 @@ export class ProfileComponent implements OnInit {
 
   ActivateShowPost: boolean = false;
 
-  constructor(private service: SharedService, private route: ActivatedRoute, private sanitizer: DomSanitizer, private router: Router) { }
+  constructor(private service: SharedService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(() => {
@@ -111,6 +110,10 @@ export class ProfileComponent implements OnInit {
   showPost(item) {
     this.post = item;
     this.ActivateShowPost = true;
+  }
+
+  deletePost() {
+    this.service.deletePost(this.post.id).subscribe(() => this.closePost());
   }
 
   closePost() {

@@ -53,5 +53,25 @@ namespace WebGal.Controllers
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
+
+        [HttpDelete]
+        [Route("Delete/{picturepath}")]
+        public IActionResult Delete(string picturepath)
+        {
+            try
+            {
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToDelete = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                pathToDelete = Path.Combine(pathToDelete, picturepath);
+                
+                System.IO.File.Delete(pathToDelete);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
     }
 }

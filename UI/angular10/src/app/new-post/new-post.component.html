@@ -4,33 +4,39 @@
     New Post
   </h5>
 
-  <!--Card content-->
   <div class="card-body px-lg-5 pt-0">
-
-    <!-- Form -->
 
     <div class="profile-userpic mx-auto mt-3 " style="text-align: center;">
       <button (click)="file.click()" class="btn img-btn-1">
-        <img [src]="createImgPath(PicturePath)" onerror="this.src='https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png'" alt="">
+        <img [src]="createImgPath(PicturePath)" onerror="this.src='https://cdn0.iconfinder.com/data/icons/set-app-incredibles/24/Image-01-512.png'" alt="">
       </button>
       <input #file type="file" (change)="uploadFile(file.files)" style="display:none;">
     </div>
 
     <div class="md-form mt-3">
-      <textarea id="materialEditProfileFormProfileInfo" class="form-control t-form-4" [(ngModel)]="PostText" value="{{PostText}}"></textarea>
       <label for="materialEditProfileFormProfileInfo">Post info</label>
+      <textarea id="materialEditProfileFormProfileInfo" class="form-control t-form-4" [(ngModel)]="PostText" value="{{PostText}}"></textarea>
     </div>
 
+<!--
     <div class="md-form">
       <input id="materialEditProfileFormProfilePicture" class="form-control t-form-4" [(ngModel)]="PicturePath">
       <label for="materialEditProfileFormProfilePicture">PicturePath</label>
     </div>
-
-
-    <button (click)="post()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Post</button>
+-->
+  
+    <div *ngIf="isPosting; else editingBlock">
+    <button  (click)="post()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Post</button>
     <p class="text-center">
-      <a href="" routerLink="../profile/{{UserName}}" class="t-text-color-4">Cancel</a>
+      <a (click)="deleteFile()" href="" routerLink="../profile/{{UserName}}" class="t-text-color-4">Cancel</a>
     </p>
+    </div>
+    <ng-template #editingBlock>
+    <button (click)="editPost()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Save changes</button>
+    <p class="text-center">
+      <a (click)="deleteFile()" href="" routerLink="../../profile/{{UserName}}" class="t-text-color-4">Cancel</a>
+    </p>
+    </ng-template>
 
   </div>
 </div>

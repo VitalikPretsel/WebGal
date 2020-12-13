@@ -20,7 +20,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PostComponent } from './post/post.component';
 import { FollowersComponent } from './followers/followers.component';
 import { NewPostComponent } from './new-post/new-post.component';
-//import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { PostsScrollComponent } from './posts-scroll/posts-scroll.component';
 
 /*
 export function TokenGetter(){
@@ -40,7 +40,7 @@ export function TokenGetter(){
     PostComponent,
     FollowersComponent,
     NewPostComponent,
-    //EditProfileComponent
+    PostsScrollComponent,
   ],
   imports: [
     BrowserModule,

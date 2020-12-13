@@ -1,34 +1,6 @@
-<!--
+<div class="card col-md-6 my-3 mx-auto rounded-0">
 
-<div class="form-froup row">
-
-    <label class="col-sm-2 col-form-label">Username</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" [(ngModel)]="Username">
-    </div>
-    <label class="col-sm-2 col-form-label">Email</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" [(ngModel)]="Email">
-    </div>
-    <label class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" [(ngModel)]="Password">
-    </div>
-    <label class="col-sm-2 col-form-label">Confirm Password</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" [(ngModel)]="PasswordConfirm">
-    </div>
-</div>
-
-<button (click)="register()"  class="btn btn-primary">
-    Register
-</button>
-
--->
-<!-- Material form login -->
-<div class="card col-md-6 my-3 mx-auto" style="border-radius: 0">
-
-  <h5 class="card-header text-white text-center py-4 t-bg-grad-1" style="border-radius: 0">
+  <h5 class="card-header text-white text-center py-4 t-bg-grad-1 rounded-0">
     Sign up
   </h5>
 
@@ -40,38 +12,30 @@
     </div>
   </div>
 
-  <!--Card content-->
   <div class="card-body px-lg-5 pt-0">
 
-    <!-- Form -->
-    <!-- Email -->
     <div class="md-form mt-3">
-      <input id="materialLoginFormUserName" class="form-control t-form-4" [(ngModel)]="Username">
       <label for="materialLoginFormUserName">Username</label>
+      <input id="materialLoginFormUserName" class="form-control t-form-4" [(ngModel)]="Username">
     </div>
 
-    <!-- Email -->
     <div class="md-form">
-      <input id="materialLoginFormEmail" class="form-control t-form-4" [(ngModel)]="Email">
       <label for="materialLoginFormEmail">Email</label>
+      <input id="materialLoginFormEmail" class="form-control t-form-4" [(ngModel)]="Email">
     </div>
 
-    <!-- Password -->
     <div class="md-form">
-      <input type="password" id="materialLoginFormPassword" class="form-control t-form-4" [(ngModel)]="Password">
       <label for="materialLoginFormPassword">Password</label>
+      <input type="password" id="materialLoginFormPassword" class="form-control t-form-4" [(ngModel)]="Password">
     </div>
 
-    <!-- Password -->
     <div class="md-form">
-      <input type="password" id="materialLoginFormConfirmPassword" class="form-control t-form-4" [(ngModel)]="PasswordConfirm">
       <label for="materialLoginFormConfirmPassword">Confirm Password</label>
+      <input type="password" id="materialLoginFormConfirmPassword" class="form-control t-form-4" [(ngModel)]="PasswordConfirm">
     </div>
 
-    <!-- Sign in button -->
     <button (click)="register()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Sign up</button>
 
-    <!-- Register -->
     <p class="text-center">
       Already signed up?
       <a href="" routerLink="../login" class="t-text-color-4">Log in</a>

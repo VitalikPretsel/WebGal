@@ -9,9 +9,11 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PostComponent } from './post/post.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { FollowersComponent } from './followers/followers.component';
+import { PostsScrollComponent } from './posts-scroll/posts-scroll.component';
 
 
 const routes: Routes = [
+  { path: '', component: PostsScrollComponent },
   { path: 'account', component: AccountComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
@@ -20,7 +22,9 @@ const routes: Routes = [
   { path: 'editProfile', component: EditProfileComponent },
   { path: 'post/:post', component: PostComponent },
   { path: 'newpost', component: NewPostComponent },
+  { path: 'newpost/:postId', component: NewPostComponent },
   { path: 'followers', component: FollowersComponent },
+  { path: 'postsScroll', component: PostsScrollComponent },
 ];
 
 @NgModule({
