@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+//import { of } from 'rxjs';
+//import { CommonModule } from '@angular/common';
+//import { BrowserModule } from '@angular/platform-browser';
+//import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -78,15 +78,9 @@ export class RegisterComponent implements OnInit {
         }
       });
 
-
     if (this.success) {
 
     }
-
-
-
-
-
     //this.service.registerUser(user).subscribe(res => 
     //	{alert(res.toString());
     //})

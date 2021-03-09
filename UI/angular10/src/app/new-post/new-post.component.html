@@ -1,7 +1,12 @@
 <div class="card col-md-6 my-3 mx-auto" style="border-radius: 0">
 
   <h5 class="card-header text-white text-center py-4 t-bg-grad-1" style="border-radius: 0">
-    New Post
+    <div *ngIf="isPosting; else editTextBlock">
+      New post
+    </div>
+    <ng-template #editTextBlock>
+      Edit post
+    </ng-template>
   </h5>
 
   <div class="card-body px-lg-5 pt-0">
