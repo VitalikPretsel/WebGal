@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { of } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+//import { CommonModule } from '@angular/common';
+//import { BrowserModule } from '@angular/platform-browser';
+//import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   followers: any;
   followings: any;
 
-  followingsTarget: string;
+  followingsTarget: string = "Followers";
 
   userName: string;
   user: any;
@@ -36,7 +36,9 @@ export class ProfileComponent implements OnInit {
 
   ActivateShowPost: boolean = false;
 
-  constructor(private service: SharedService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private service: SharedService, private route: ActivatedRoute, private router: Router)
+  {
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(() => {

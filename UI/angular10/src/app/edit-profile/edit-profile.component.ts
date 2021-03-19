@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { UploadService } from '../upload.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -10,7 +11,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 })
 export class EditProfileComponent implements OnInit {
 
-  constructor(private service: SharedService, private router: Router, private sanitizer: DomSanitizer) { }
+  constructor(private service: SharedService, public uploadService: UploadService, private router: Router, private sanitizer: DomSanitizer) { }
 
   UserName: string;
   UserId: string;
@@ -18,10 +19,6 @@ export class EditProfileComponent implements OnInit {
 
   ProfileName: string;
   ProfileInfo: string;
-  ProfilePicturePath: string;
-
-  formData: any = new FormData();
-  fileToUpload: any;
 
   ngOnInit(): void {
     this.UserName = this.service.getCurrentUserNameJwt();
@@ -30,7 +27,7 @@ export class EditProfileComponent implements OnInit {
       this.profile = profiledata;
       this.ProfileName = this.profile.profileName;
       this.ProfileInfo = this.profile.profileInfo;
-      this.ProfilePicturePath = this.profile.profilePicturePath;
+      this.uploadService.picturePath = this.profile.profilePicturePath;
 
       if (this.profile.profilePicturePath == "" || this.profile.profilePicturePath == null)
         this.profile.profilePicturePath = "https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png";
@@ -43,36 +40,13 @@ export class EditProfileComponent implements OnInit {
     var editedProfile = {
       ProfileName: this.ProfileName,
       ProfileInfo: this.ProfileInfo,
-      ProfilePicturePath: this.ProfilePicturePath,
+      ProfilePicturePath: this.uploadService.picturePath,
     };
     this.service.editProfile(this.UserId, editedProfile).subscribe(res => {
       this.router.navigate(["/profile/" + this.UserName]).then(() => {
         window.location.reload();
       });
     });
-  }
-
-  public uploadFile = (files) => {
-    if (files.length === 0) { return; }
-
-    this.fileToUpload = <File>files[0];
-    
-    this.formData.append('file', this.fileToUpload, this.fileToUpload.name);
-    console.log(this.formData);
-    this.service.uploadFile(this.formData).subscribe(() => {
-      console.log(this.fileToUpload);
-      console.log(this.fileToUpload.name);
-
-      this.ProfilePicturePath = "resources/images/" + this.fileToUpload.name;
-      console.log(this.ProfilePicturePath);
-    });
-  }
-
-  public deleteFile() {
-    console.log(this.formData);
-    this.service.deleteFile(this.fileToUpload.name).subscribe(() =>
-      this.formData.delete("file")
-    );
   }
 
   public createImgPath = (serverPath: string) => {

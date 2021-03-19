@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service'
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+//import { CommonModule } from '@angular/common';
+//import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-header',
