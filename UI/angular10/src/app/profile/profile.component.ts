@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   followers: any;
   followings: any;
 
-  followingsTarget: string;
+  followingsTarget: string = "Followers";
 
   userName: string;
   user: any;
@@ -36,7 +36,9 @@ export class ProfileComponent implements OnInit {
 
   ActivateShowPost: boolean = false;
 
-  constructor(private service: SharedService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private service: SharedService, private route: ActivatedRoute, private router: Router)
+  {
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(() => {

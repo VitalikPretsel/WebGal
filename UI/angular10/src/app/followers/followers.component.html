@@ -3,7 +3,7 @@
 </div>
 <ng-template #showProfiles>
   <hr class="my-2">
-  <div *ngFor="let p of profiles; let i = index">
+  <div *ngFor="let p of profiles; let p2 of profiles; let i = index">
     <div class="row m-0">
       <div class="col-5 my-auto">
         <div class="p-1" style="text-align: center">
@@ -14,9 +14,9 @@
       </div>
       <div class="col-7 my-auto" style="text-align: center">
         <div style="display: inline-block;">
-          <a class="btn t-form-4 waves-effect z-depth-0" routerLink="/profile/{{users[i].userName}}">
-            <p class="my-0"><b>{{users[i].userName}}</b></p>
-            <p class="my-0">{{p.profileName}}</p>
+          <a class="btn t-form-4 waves-effect z-depth-0" routerLink="/profile/{{users[i]?.userName}}">
+            <p class="my-0"><b>{{users[i]?.userName}}</b></p>
+            <p class="my-0">{{p2?.profileName}}</p>
           </a>
         </div>
       </div>

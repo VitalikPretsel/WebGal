@@ -1,7 +1,7 @@
 <div class="row m-0 p-0">
   <div class="col-md-7 m-0 p-0">
-    <a [href]="createImgPath(post.picturePath)">
-      <img [src]="createImgPath(post.picturePath)" onerror="this.src='https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png'" alt="" style="width:100%">
+    <a [href]="createImgPath(post?.picturePath)">
+      <img [src]="createImgPath(post?.picturePath)" onerror="this.src='https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png'" alt="" style="width:100%">
     </a>
   </div>
   <div class="col-md-5 m-0">
@@ -10,22 +10,22 @@
       <div class="col-5 my-auto">
         <div class="p-1" style="text-align: center">
 		<div class="img-snip rounded-circle border" style="height:80px;width:80px;display: inline-block;">
-            <img [src]="createImgPath(profile.profilePicturePath)" onerror="this.src='https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png'" alt="" class="rounded-circle" style="height:80px; min-height: 80px">
+            <img [src]="createImgPath(profile?.profilePicturePath)" onerror="this.src='https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png'" alt="" class="rounded-circle" style="height:80px; min-height: 80px">
           </div>
         </div>
       </div>
       <div class="col-7 my-auto" style="text-align: center">
         <div style="display: inline-block;">
-          <a class="btn t-form-4 waves-effect z-depth-0" routerLink="/profile/{{user.userName}}">
-            <p class="my-0"><b>{{ user.userName }}</b></p>
-            <!--<p class="my-0">{{profile.profileName}}</p>-->
+          <a class="btn t-form-4 waves-effect z-depth-0" routerLink="/profile/{{user?.userName}}">
+            <p class="my-0"><b>{{ user?.userName }}</b></p>
+            <!--<p class="my-0">{{profile?.profileName}}</p>-->
           </a>
         </div>
       </div>
       <hr class="my-2">
     </div>
 
-    <p>{{post.postText}}</p>
-    <p style="color: gray">{{post.postDate | date : "medium" }}</p>
+    <p>{{post?.postText}}</p>
+    <p style="color: gray">{{post?.postDate | date : "medium" }}</p>
   </div>
 </div>

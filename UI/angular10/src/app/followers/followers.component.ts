@@ -26,7 +26,7 @@ export class FollowersComponent implements OnInit {
   }
 
   loadProfilesAndUsers() {
-    this.followers.forEach(f => {
+    this.followers?.forEach(f => {
       let targetUserId = (this.followingsTarget == "Followers") ? f.followerUserId : f.followingUserId;
 
       this.service.getProfile(targetUserId).subscribe((profiledata) => {

@@ -13,9 +13,9 @@
 
     <div class="profile-userpic mx-auto mt-3 " style="text-align: center;">
       <button (click)="file.click()" class="btn img-btn-1">
-        <img [src]="createImgPath(PicturePath)" onerror="this.src='https://cdn0.iconfinder.com/data/icons/set-app-incredibles/24/Image-01-512.png'" alt="">
+        <img [src]="createImgPath(uploadService.picturePath)" onerror="this.src='https://cdn0.iconfinder.com/data/icons/set-app-incredibles/24/Image-01-512.png'" alt="">
       </button>
-      <input #file type="file" (change)="uploadFile(file.files)" style="display:none;">
+      <input #file type="file" (change)="uploadService.uploadFile(file.files)" style="display:none;">
     </div>
 
     <div class="md-form mt-3">
@@ -33,13 +33,13 @@
     <div *ngIf="isPosting; else editingBlock">
     <button  (click)="post()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Post</button>
     <p class="text-center">
-      <a (click)="deleteFile()" href="" routerLink="../profile/{{UserName}}" class="t-text-color-4">Cancel</a>
+      <a (click)="uploadService.deleteFile()" href="" routerLink="../profile/{{UserName}}" class="t-text-color-4">Cancel</a>
     </p>
     </div>
     <ng-template #editingBlock>
     <button (click)="editPost()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Save changes</button>
     <p class="text-center">
-      <a (click)="deleteFile()" href="" routerLink="../../profile/{{UserName}}" class="t-text-color-4">Cancel</a>
+      <a (click)="uploadService.deleteFile()" href="" routerLink="../../profile/{{UserName}}" class="t-text-color-4">Cancel</a>
     </p>
     </ng-template>
 
