@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { AccountComponent } from './account/account.component';
+//import { AccountComponent } from './account/account.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { SharedService } from './shared.service';
@@ -32,7 +32,7 @@ export function TokenGetter(){
   declarations: [
     AppComponent,
     HeaderComponent,
-    AccountComponent,
+    //AccountComponent,
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
