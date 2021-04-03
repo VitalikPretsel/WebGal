@@ -8,6 +8,6 @@ If you want to run project, don't forget to upload node-modules for client part 
 
 Here is some screenshots for demonstration:
 
-![example1](demo_img/demo_1.jpg)
-![example2](demo_img/demo_2.jpg)
-![example3](demo_img/demo_3.jpg)
+![example1](./demo_img/demo_1.jpg)
+![example2](./demo_img/demo_2.jpg)
+![example3](./demo_img/demo_3.jpg)
