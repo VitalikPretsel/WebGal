@@ -23,47 +23,11 @@ namespace WebGal.Controllers
 
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationContext context)
             => (_userManager, _signInManager) = (userManager, signInManager);
-        /*
-        [Route("User/IsAuthenticated")]
-        [HttpGet]
-        public bool IsAccountAuthenticated()
-        {
-            var b = User.Identity.IsAuthenticated;
-            return b;
-        }
-        */
-        /*
-        [Route("User/IsCurrent/{username}")]
-        [HttpGet]
-        public bool IsCurrentAccount(string username)
-        {
-            if (User.Identity.IsAuthenticated)
-                return username == _userManager.GetUserAsync(User).Result.UserName;
-            else
-                return false;
-        }
-        */
-        /*
-        [Route("User/CurrentUserName")]
-        [HttpGet]
-        public string GetCurrentUserName()
-        {
-            var str = User.Identity.Name;
-            return str;
-        }
-        */
+       
         [Route("User/Get/{username}")]        //{username}
         [HttpGet]
         public async Task<IdentityUser> GetAccount(string username) =>
             _userManager.Users.FirstOrDefault(u => (u.UserName == username || u.Id == username));
-    
-
-        /*
-        [Route("Register/Get/{id?}")]
-        [HttpGet]
-        public async Task<IdentityUser> Register(string id)
-            => _userManager.Users.Where(u => u.Id == id).FirstOrDefault();
-        */
 
         [Route("Register/Post")]
         [HttpPost]
@@ -79,12 +43,6 @@ namespace WebGal.Controllers
                 UserName = model.Username,
                 Email = model.Email
             };
-            /*
-            if (model.Password != model.PasswordConfirm)            // for password-confirm matching
-            {
-                ModelState.AddModelError("PasswordConfirm", "Passwords don't match");
-                return BadRequest(ModelState);
-            }*/
             if (_userManager.Users.Any(u => u.Email == model.Email))            
             {
                 ModelState.AddModelError("Email", "User with such email already exists");
@@ -100,17 +58,7 @@ namespace WebGal.Controllers
                 return BadRequest(ModelState);
             }
             await _signInManager.SignInAsync(user, false);
-            /*
-            var profile = new Profile
-            {
-                UserID = _userManager.Users.FirstOrDefault(u => u.UserName == model.Username).Id,
-                ProfileInfo = "",
-                ProfileName = "",
-                ProfilePicturePath = ""
-            };
-
-            RedirectToAction("AddProfile", "ProfileController", profile);
-            */
+            
             return Ok();
         }
 
@@ -121,7 +69,6 @@ namespace WebGal.Controllers
 
         [Route("Login/Post")]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -140,8 +87,8 @@ namespace WebGal.Controllers
 
             var claims = new List<Claim>
             {
-                new Claim("Id", _userManager.Users.Where(u => u.UserName == model.Username).FirstOrDefault().Id), // ?????
-                new Claim("Name", model.Username), // ClaimTypes.Name
+                new Claim("Id", _userManager.Users.Where(u => u.UserName == model.Username).FirstOrDefault().Id), 
+                new Claim("Name", model.Username), 
                 new Claim(ClaimTypes.Role, "user")
             };
 
@@ -159,28 +106,6 @@ namespace WebGal.Controllers
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
             return Ok(new { Token = tokenString });
-
-            /*
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
-                    {
-                        return "Login: " + model.ReturnUrl; // Redirect returnUrl
-                    }
-                    else
-                    {
-                        return "Login: " + "no ReturnUrl"; // Redirect home index
-                    }
-              */
         }
-        /*
-        [Route("Logout")]
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<string> Logout()
-        {
-            await _signInManager.SignOutAsync();
-
-            return "Logout";
-        }
-        */
     }
 }

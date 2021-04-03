@@ -1,18 +1,9 @@
 ﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using WebGal.Models;
-using WebGal.ViewModels;
 
 namespace WebGal.Controllers
 {

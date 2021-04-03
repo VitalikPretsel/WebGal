@@ -93,7 +93,6 @@ namespace WebGal
 
             app.UseRouting();
                 
-            //app.UseCors(options => options.WithOrigins("http://localhost:4200"));
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
