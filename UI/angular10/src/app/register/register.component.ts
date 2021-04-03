@@ -1,10 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { Router } from '@angular/router';
-//import { of } from 'rxjs';
-//import { CommonModule } from '@angular/common';
-//import { BrowserModule } from '@angular/platform-browser';
-//import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -34,13 +30,7 @@ export class RegisterComponent implements OnInit {
       Password: this.Password,
       PasswordConfirm: this.PasswordConfirm,
     }
-    //this.service.registerUser(user).subscribe(res => 
-    //  {this.router.navigate(["/"]).then(() => {
-    //    window.location.reload();
-    //  });
-    //})
     this.service.registerUser(user).subscribe(res => {
-      //console.log(res);
       this.success = true;
       let loginUser = {
         Username: this.Username,
@@ -63,7 +53,6 @@ export class RegisterComponent implements OnInit {
       });
     },
       error => {
-        console.log(error);
         this.errors = [];
         this.success = false;
         if (error.status != 400) {
@@ -72,8 +61,6 @@ export class RegisterComponent implements OnInit {
         else {
           for (var errorField in error.error) {
             error.error[errorField].forEach(e => this.errors.push(errorField + ': ' + e));
-            //this.errors.push(errorField + ': ' + errorText);
-            //this.errors.push(errorField + ': ' + error.error[errorField]);
           }
         }
       });
@@ -81,8 +68,5 @@ export class RegisterComponent implements OnInit {
     if (this.success) {
 
     }
-    //this.service.registerUser(user).subscribe(res => 
-    //	{alert(res.toString());
-    //})
   }
 }

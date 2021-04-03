@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { Router } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { UploadService } from '../upload.service';
 
 @Component({
@@ -29,9 +29,6 @@ export class EditProfileComponent implements OnInit {
       this.ProfileInfo = this.profile.profileInfo;
       this.uploadService.picturePath = this.profile.profilePicturePath;
 
-      if (this.profile.profilePicturePath == "" || this.profile.profilePicturePath == null)
-        this.profile.profilePicturePath = "https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png";
-      //this.profile.profilePicturePath = this.sanitizer.bypassSecurityTrustUrl("https://localhost:44336/" + this.profile.profilePicturePath);
       this.profile.profilePicturePath = "https://localhost:44336/" + this.profile.profilePicturePath;
     });
   }
@@ -53,19 +50,3 @@ export class EditProfileComponent implements OnInit {
     return 'https://localhost:44336/' + serverPath;
   }
 }
-
-
-
-/*
-
-event => {
-  		if (event.type === HttpEventType.UploadProgress)
-  			this.progress = Math.round(100 * event.loaded / event.total);
-  		else if (event.type === HttpEventType.Response)
-  		{
-  			this.message = 'Upload success.';
-  			this.onUploadFinished.emit(evet.body);
-  		}
-  	}
-
-*/

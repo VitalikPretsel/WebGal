@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -47,11 +47,6 @@ export class LoginComponent implements OnInit {
         this.cookieService.delete("password");
       }
     });
-
-
-    //this.service.loginUser(val).subscribe(res => 
-    //	{alert(res.toString());
-    //});
   }
 }
 

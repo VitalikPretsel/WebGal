@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { Observable } from 'rxjs';
 import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
@@ -12,7 +11,7 @@ export class SharedService {
   constructor(private http: HttpClient) { }
 
   registerUser(val: any) {
-    return this.http.post(this.APIUrl + '/account/register/post', val); //, {responseType: 'text'}
+    return this.http.post(this.APIUrl + '/account/register/post', val);
   }
 
   getUser(val: any) {
@@ -21,7 +20,6 @@ export class SharedService {
   getProfile(val: any) {
     return this.http.get(this.APIUrl + '/Profile/Get/' + val);
   }
-
 
   loginUser(val: any) {
     return this.http.post(this.APIUrl + '/Account/Login/Post', val);
@@ -48,12 +46,14 @@ export class SharedService {
       return false;
     }
   }
+
   addProfile(val: any) {
     return this.http.post(this.APIUrl + '/Profile/Add', val);
   }
   editProfile(id: string, val: any) {
     return this.http.put(this.APIUrl + '/Profile/Edit/' + id, val);
   }
+
   uploadFile(val: any) {
     return this.http.post(this.APIUrl + '/Upload', val);
   }
@@ -61,6 +61,7 @@ export class SharedService {
     console.log(this.APIUrl + '/Upload/Delete/'+ val);
     return this.http.delete(this.APIUrl + '/Upload/Delete/'+ val);
   }
+
   getPosts(val: any) {
     return this.http.get(this.APIUrl + '/Post/GetPosts/' + val);
   }
@@ -79,7 +80,6 @@ export class SharedService {
     return this.http.delete(this.APIUrl + '/Post/Delete/' + val);
   }
 
-
   getFollowings(val: any) {
     return this.http.get(this.APIUrl + '/Following/GetFollowings/' + val);
   }
@@ -97,22 +97,3 @@ export class SharedService {
     return this.http.delete(this.APIUrl + '/Following/Unfollow/' + val1 + "/" + val2);
   }
 }
-
-
-
-
-
-
-
-
-/*
-  isAuthenticated(){
-    return this.http.get(this.APIUrl + '/Account/User/IsAuthenticated', {});
-  }
-  getCurrentUserName(){
-    return this.http.get(this.APIUrl + '/Account/User/CurrentUserName', {});
-  }
-  logoutUser(){
-    return this.http.post(this.APIUrl + '/Account/Logout', {});
-  }
-*/

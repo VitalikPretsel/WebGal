@@ -9,9 +9,6 @@
     <div class="profile-userpic mx-auto mt-3 " style="text-align: center;">
       <button (click)="file.click()" class="btn img-btn-1">
         <img [src]="createImgPath(uploadService.picturePath)" onerror="this.src='https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png'" alt="">
-        <!-- https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png
-        {{profile.profilePicturePath}}
-        -->
       </button>
       <input #file type="file" (change)="uploadService.uploadFile(file.files)" style="display:none;">
     </div>
@@ -25,17 +22,7 @@
       <label for="materialEditProfileFormProfileInfo">Profile info</label>
       <textarea id="materialEditProfileFormProfileInfo" class="form-control t-form-4" [(ngModel)]="ProfileInfo" value="{{profile?.profileInfo}}"></textarea>
     </div>
-
-<!--
-    <div class="md-form">
-      <input id="materialEditProfileFormProfilePicture" class="form-control t-form-4" [(ngModel)]="ProfilePicturePath">
-      <label for="materialEditProfileFormProfilePicture">ProfilePicturePath</label>
-    </div>
--->
-
-    <!-- button -->
     <button (click)="saveChanges()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Save changes</button>
-    <!--<button routerLink="../profile/{{UserName}}" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Cancel</button>-->
     <p class="text-center">
       <a (click)="uploadService.deleteFile()" href="" routerLink="../profile/{{UserName}}" class="t-text-color-4">Cancel</a>
     </p>

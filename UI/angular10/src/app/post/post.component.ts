@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
-//import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -24,12 +23,10 @@ export class PostComponent implements OnInit {
         this.service.getProfile(this.user.id).subscribe((profiledata) => {
           this.profile = profiledata;
           var d = new Date(this.post.postDate);
-          //this.postDate = d.getUTCDate() + "/" + d.getUTCMonth() + "/" + d.getUTCFullYear();
           this.postDate = d.toUTCString();
 
           if (this.profile.profilePicturePath == "" || this.profile.profilePicturePath == null)
             this.profile.profilePicturePath = "https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png";
-          //this.profile.profilePicturePath = "https://localhost:44336/" + this.profile.profilePicturePath
         });
     });
   }

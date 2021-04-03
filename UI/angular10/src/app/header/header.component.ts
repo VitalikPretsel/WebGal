@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service'
 import { Router } from '@angular/router';
-//import { CommonModule } from '@angular/common';
-//import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-header',
@@ -22,10 +20,10 @@ export class HeaderComponent implements OnInit {
   }
 
   isAuthenticated() {
-    this.isAuth = this.service.isAuthenticatedJwt(); //.subscribe((data:boolean) => this.isAuth = data);
+    this.isAuth = this.service.isAuthenticatedJwt(); 
   }
   getCurrentUserName() {
-    this.userName = this.service.getCurrentUserNameJwt(); //.subscribe((data:string) => this.userName = data);
+    this.userName = this.service.getCurrentUserNameJwt(); 
   }
 
   logout() {

@@ -22,13 +22,6 @@
       <label for="materialEditProfileFormProfileInfo">Post info</label>
       <textarea id="materialEditProfileFormProfileInfo" class="form-control t-form-4" [(ngModel)]="PostText" value="{{PostText}}"></textarea>
     </div>
-
-<!--
-    <div class="md-form">
-      <input id="materialEditProfileFormProfilePicture" class="form-control t-form-4" [(ngModel)]="PicturePath">
-      <label for="materialEditProfileFormProfilePicture">PicturePath</label>
-    </div>
--->
   
     <div *ngIf="isPosting; else editingBlock">
     <button  (click)="post()" id="t-btn-outline-4" class="btn t-form-4 btn-rounded btn-block my-4 waves-effect z-depth-0">Post</button>

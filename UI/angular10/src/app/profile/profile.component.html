@@ -2,24 +2,17 @@
   <div class="row profile">
     <div class="col-md-3 p-0 col-spec-pr">
       <div class="profile-sidebar border p-3">
-        <!-- SIDEBAR USERPIC -->
         <div class="profile-userpic mx-auto">
           <img [src]="profile?.profilePicturePath" onerror="this.src='https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png'" alt="" style="width: 90%">
-          <!-- https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png
-            {{profile.profilePicturePath}}-->
           </div>
-          <!-- END SIDEBAR USERPIC -->
-          <!-- SIDEBAR USER TITLE -->
           <div class="profile-usertitle mt-3">
             <div class="profile-usertitle-name">
-              <b>{{user?.userName}}</b> <!-- Pickle Rick -->
+              <b>{{user?.userName}}</b>
             </div>
             <div class="profile-usertitle-job">
-              {{profile?.profileName}} <!-- I'm a Pickle Rick! -->
+              {{profile?.profileName}}
             </div>
           </div>
-          <!-- END SIDEBAR USER TITLE -->
-          <!-- SIDEBAR BUTTONS -->
           <div class="profile-userbuttons">
             <div *ngIf="isAuthCurrentUser; else authNotCurrentUserBlock">
               <a id="t-btn-grad-1" class="btn btn-rounded btn-block mt-3 waves-effect z-depth-0" routerLink="../../newpost">New Post
@@ -80,7 +73,6 @@
 
           <div class="profile-content border p-3 mt-3">
             {{profile?.profileInfo}}
-            <!-- Some user related content goes here... -->
           </div>
           <div *ngIf="isAuthCurrentUser" class="profile-content mt-3">
             <div class="row">
@@ -104,7 +96,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                   </svg>
-                </a><!-- New Post -->
+                </a>
               </div>
             </div>
           </div>
@@ -116,19 +108,10 @@
           <div class="mdb-lightbox" *ngFor="let i of itemInRowRange">
             <div class="row">
               <figure class="col-md-4" *ngFor="let item of items | async | slice: i*3 : i*3 + 3">
-                <!--<a href="https://localhost:44336/{{item.picturePath}}" data-size="1600x1067">-->
                   <button type="button" class="btn img-btn-2" data-toggle="modal" data-target="#postModal" (click)="showPost(item)" data-backdrop="static" data-keyboard="false">
-                    <!-- (click)="showPost(item)" -->
-                    <!-- routerLink="../../post/{{item.id}}" -->
                     <div class="img-snip square">
                       <img alt="picture" src="https://localhost:44336/{{item.picturePath}}">
                     </div>
-              <!--
-              <div class="mb-3 pics animation all 2">
-                  <img alt="picture" src="https://localhost:44336/{{item.picturePath}}">
-                </div>
-              -->
-              <!-- </a> -->
             </button>
           </figure>
         </div>
@@ -183,90 +166,8 @@
           <div *ngIf="followingsTarget=='Followings'">
             <app-followers [followers]="followings" [followingsTarget]="followingsTarget"></app-followers>
           </div>
-          <!-- {{post.id}} -->
         </div>
-        <!--
-        <div class="modal-footer">
-          <button (click)="closePost()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Useless button</button>
-        </div>
-      -->
     </div>
   </div>
 </div>
 </div>
-<!--
-<div class="row gallery my-3">
-
-  <div class="col-md-12 p-0">
-
-    <div id="mdb-lightbox-ui"></div>
-
-    <div class="mdb-lightbox">
-      <div class="row">
-        <figure class="col-md-4">
-          <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg" data-size="1600x1067">
-            <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(145).jpg" class="img-fluid">
-          </a>
-        </figure>
-
-        <figure class="col-md-4">
-          <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg" data-size="1600x1067">
-            <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(150).jpg" class="img-fluid" />
-          </a>
-        </figure>
-
-        <figure class="col-md-4">
-          <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg" data-size="1600x1067">
-            <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(152).jpg" class="img-fluid" />
-          </a>
-        </figure>
-      </div>
-
-      <div class="row">
-
-        <figure class="col-md-4">
-          <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg" data-size="1600x1067">
-            <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(42).jpg" class="img-fluid" />
-          </a>
-        </figure>
-
-        <figure class="col-md-4">
-          <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg" data-size="1600x1067">
-            <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(151).jpg" class="img-fluid" />
-          </a>
-        </figure>
-
-        <figure class="col-md-4">
-          <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg" data-size="1600x1067">
-            <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(40).jpg" class="img-fluid" />
-          </a>
-        </figure>
-      </div>
-      <div class="row">
-
-        <figure class="col-md-4">
-          <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg" data-size="1600x1067">
-            <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(148).jpg" class="img-fluid" />
-          </a>
-        </figure>
-
-        <figure class="col-md-4">
-          <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg" data-size="1600x1067">
-            <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(147).jpg" class="img-fluid" />
-          </a>
-        </figure>
-
-        <figure class="col-md-4">
-          <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg" data-size="1600x1067">
-            <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(149).jpg" class="img-fluid" />
-          </a>
-        </figure>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-</div>
--->

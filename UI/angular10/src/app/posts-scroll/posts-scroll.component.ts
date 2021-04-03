@@ -38,7 +38,7 @@ export class PostsScrollComponent implements OnInit {
     this.authUserName = this.service.getCurrentUserNameJwt();
     this.service.getFollowings(this.authUserId).subscribe((followingsdata) => {
       this.followings = followingsdata;
-      this.loadPosts().then(() => { this.posts = this.tempposts; /*console.log(this.posts)*/ });
+      this.loadPosts().then(() => { this.posts = this.tempposts; });
 
     });
   }

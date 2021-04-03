@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-//import { CommonModule } from '@angular/common';
-//import { BrowserModule } from '@angular/platform-browser';
-//import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -36,8 +33,7 @@ export class ProfileComponent implements OnInit {
 
   ActivateShowPost: boolean = false;
 
-  constructor(private service: SharedService, private route: ActivatedRoute, private router: Router)
-  {
+  constructor(private service: SharedService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -48,9 +44,6 @@ export class ProfileComponent implements OnInit {
         this.getFollowInfo();
         this.service.getProfile(this.user.id).subscribe((profiledata) => {
           this.profile = profiledata;
-          if (this.profile.profilePicturePath == "" || this.profile.profilePicturePath == null)
-            this.profile.profilePicturePath = "https://images.vexels.com/media/users/3/147103/isolated/preview/e9bf9a44d83e00b1535324b0fda6e91a-instagram-profile-line-icon-by-vexels.png";
-          //this.profile.profilePicturePath = this.sanitizer.bypassSecurityTrustUrl("https://localhost:44336/" + this.profile.profilePicturePath);
           this.profile.profilePicturePath = "https://localhost:44336/" + this.profile.profilePicturePath
         });
 
@@ -131,7 +124,6 @@ export class ProfileComponent implements OnInit {
       this.items = of(this.posts);
     });
   }
-
 
   public createImgPath = (serverPath: string) => {
     return 'https://localhost:44336/' + serverPath;

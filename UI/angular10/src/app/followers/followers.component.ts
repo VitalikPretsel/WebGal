@@ -1,10 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-//import { of } from 'rxjs';
-//import { CommonModule } from '@angular/common';
-//import { BrowserModule } from '@angular/platform-browser';
-//import { NgModule } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-followers',
@@ -36,6 +32,16 @@ export class FollowersComponent implements OnInit {
         this.users.push(userdata);
       });
     });
+  }
+
+  public getProfile(id: any) {
+    let pr;
+    this.profiles.forEach(p => {
+      if (p.userID == id) {
+        pr = p;
+      }
+    })
+    return pr;
   }
 
   public createImgPath = (serverPath: string) => {
